@@ -1,5 +1,6 @@
 // Custom Css
 import "../../styles/header.css";
+import { useContext } from "react";
 import { NavDropdown } from "react-bootstrap";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +11,20 @@ import {
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { UserContext } from "../../context/userContext";
+
 export default () => {
+  const [state, dispatch] = useContext(UserContext);
+
+  const role = state.user.role;
+
+  const handleLogout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
+
+  console.log(state);
   return (
     <div>
       <NavDropdown
@@ -24,26 +38,33 @@ export default () => {
           />
         }
       >
-        <NavDropdown.Item className="menu-menu-container">
-          <div className="menu-container">
-            <FontAwesomeIcon icon={faUser} className="icon-plus" />
-            <strong style={{ color: "white" }}>Profile</strong>
+        {role == "admin" ? (
+          <div>
+            <NavDropdown.Item className="menu-menu-container">
+              <div className="menu-container">
+                <FontAwesomeIcon icon={faVideo} className="icon-plus" />
+                <strong style={{ color: "white" }}>Add Film</strong>
+              </div>
+            </NavDropdown.Item>
           </div>
-        </NavDropdown.Item>
-        <NavDropdown.Item className="menu-menu-container">
-          <div className="menu-container">
-            <FontAwesomeIcon icon={faClapperboard} className="icon-plus" />
-            <strong style={{ color: "white" }}>My List Film</strong>
+        ) : (
+          <div>
+            <NavDropdown.Item className="menu-menu-container">
+              <div className="menu-container">
+                <FontAwesomeIcon icon={faUser} className="icon-plus" />
+                <strong style={{ color: "white" }}>Profile</strong>
+              </div>
+            </NavDropdown.Item>
+            <NavDropdown.Item className="menu-menu-container">
+              <div className="menu-container">
+                <FontAwesomeIcon icon={faClapperboard} className="icon-plus" />
+                <strong style={{ color: "white" }}>My List Film</strong>
+              </div>
+            </NavDropdown.Item>
           </div>
-        </NavDropdown.Item>
+        )}
 
-        <NavDropdown.Item className="menu-menu-container">
-          <div className="menu-container">
-            <FontAwesomeIcon icon={faVideo} className="icon-plus" />
-            <strong style={{ color: "white" }}>Add Film</strong>
-          </div>
-        </NavDropdown.Item>
-        <NavDropdown.Item className="menu-logout">
+        <NavDropdown.Item className="menu-logout" onClick={handleLogout}>
           <div className="menu-container">
             <FontAwesomeIcon
               icon={faRightFromBracket}

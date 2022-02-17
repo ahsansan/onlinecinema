@@ -156,6 +156,7 @@ exports.login = async (req, res) => {
           email: dataOnTable.email,
           phone: dataOnTable.phone,
           image: path + dataOnTable.image,
+          role: dataOnTable.role,
           token,
           transaction: dataOnTable.transaction,
         },

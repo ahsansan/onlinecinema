@@ -1,13 +1,13 @@
 // Hook
-import { useState } from "react";
+import { useState, useContext } from "react";
 // Bootstrap
 import { Form, Button, Modal, Alert } from "react-bootstrap";
 // Custom Css
 import "../../styles/header.css";
 // Import API
-// import { API, setAuthToken } from "../config/api";
+import { API, setAuthToken } from "../../config/api";
 // Context
-// import { UserContext } from "../context/userContext";
+import { UserContext } from "../../context/userContext";
 
 export default (props) => {
   // Login
@@ -24,102 +24,101 @@ export default (props) => {
     props.isOpenRegister();
   };
 
-  //   // Context
-  //   const [state, dispatch] = useContext(UserContext);
+  // Context
+  const [state, dispatch] = useContext(UserContext);
 
-  //   // message
-  //   const [message, setMessage] = useState(null);
+  // message
+  const [message, setMessage] = useState(null);
 
-  //   const [form, setForm] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  //   const handleOnChange = (e) => {
-  //     setForm({
-  //       ...form,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  //   // ketika tombol submit di tekan
-  //   const handleOnSubmit = async (e) => {
-  //     try {
-  //       e.preventDefault();
+  // ketika tombol submit di tekan
+  const handleOnSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-  //       // Config
-  //       const config = {
-  //         headers: {
-  //           "Content-type": "application/json",
-  //         },
-  //       };
+      // Config
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-  //       // Stringify
-  //       const body = JSON.stringify(form);
+      // Stringify
+      const body = JSON.stringify(form);
 
-  //       // link config
-  //       const response = await API.post("/login", body, config);
+      // link config
+      const response = await API.post("/login", body, config);
 
-  //       // jika success
-  //       if (response.data.status == "success") {
-  //         // ketika success
-  //         const alert = (
-  //           <Alert variant="success" className="py-2">
-  //             Success
-  //           </Alert>
-  //         );
-  //         setMessage(alert);
+      // jika success
+      if (response.data.status == "success") {
+        // ketika success
+        const alert = (
+          <Alert variant="success" className="py-2">
+            Success
+          </Alert>
+        );
+        setMessage(alert);
 
-  //         setAuthToken(response.data.data.user.token);
+        setAuthToken(response.data.data.user.token);
 
-  //         // kosongkan data
-  //         setForm({
-  //           email: "",
-  //           password: "",
-  //         });
+        // kosongkan data
+        setForm({
+          email: "",
+          password: "",
+        });
 
-  //         dispatch({
-  //           type: "LOGIN_SUCCESS",
-  //           payload: response.data.data.user,
-  //         });
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data.data.user,
+        });
 
-  //         // jika kesalahan inputan
-  //       } else {
-  //         const alert = (
-  //           <Alert variant="danger" className="py-2">
-  //             Failed
-  //           </Alert>
-  //         );
-  //         setMessage(alert);
-  //       }
+        // jika kesalahan inputan
+      } else {
+        const alert = (
+          <Alert variant="danger" className="py-2">
+            Failed
+          </Alert>
+        );
+        setMessage(alert);
+      }
 
-  //       // server error
-  //     } catch (error) {
-  //       const alert = (
-  //         <Alert variant="danger" className="py-2">
-  //           Failed
-  //         </Alert>
-  //       );
-  //       setMessage(alert);
-  //       console.log(error);
-  //     }
-  //   };
+      // server error
+    } catch (error) {
+      const alert = (
+        <Alert variant="danger" className="py-2">
+          Failed
+        </Alert>
+      );
+      setMessage(alert);
+      console.log(error);
+    }
+  };
 
   return (
     <div>
       <Modal dialogClassName="info-modal" show={show} onHide={handleLoginClose}>
         <Modal.Body>
           <Modal.Title className="form-auth-h">Login</Modal.Title>
-          {/* {message && message} */}
-          {/* <Form onSubmit={handleOnSubmit}> */}
-          <Form>
+          {message && message}
+          <Form onSubmit={handleOnSubmit}>
             <Form.Group>
               <Form.Control
                 className="form-auth-input"
                 type="email"
                 name="email"
-                // onChange={handleOnChange}
-                // value={form.email}
+                onChange={handleOnChange}
+                value={form.email}
                 id="email"
                 placeholder="Email"
               />
@@ -129,8 +128,8 @@ export default (props) => {
                 className="form-auth-input"
                 type="password"
                 name="password"
-                // onChange={handleOnChange}
-                // value={form.password}
+                onChange={handleOnChange}
+                value={form.password}
                 id="password"
                 placeholder="Password"
               />
