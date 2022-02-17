@@ -63,14 +63,7 @@
 }
 
 .icon-plus {
-  color: #ac0c4e;
-  font-size: 25px;
-  margin-right: 10px;
-}
-
-.icon-logout {
-  color: red;
-  font-size: 25px;
+  height: 25px;
   margin-right: 10px;
 }
 

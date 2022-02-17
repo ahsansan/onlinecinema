@@ -83,6 +83,8 @@ export default (props) => {
           payload: response.data.data.user,
         });
 
+        handleLoginClose();
+
         // jika kesalahan inputan
       } else {
         const alert = (

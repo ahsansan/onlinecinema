@@ -5,9 +5,9 @@ import { Form, Button, Modal, Alert } from "react-bootstrap";
 // Custom CSS
 import "../../styles/header.css";
 // Sweet alert
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 // Import API
-// import { API } from "../config/api";
+import { API } from "../../config/api";
 
 export default (props) => {
   // register
@@ -24,87 +24,87 @@ export default (props) => {
     props.isOpenLogin();
   };
 
-  //   // message
-  //   const [message, setMessage] = useState(null);
+  // message
+  const [message, setMessage] = useState(null);
 
-  //   // data
-  //   const [form, setForm] = useState({
-  //     email: "",
-  //     fullName: "",
-  //     username: "",
-  //     password: "",
-  //     image: "noname.png",
-  //   });
+  // data
+  const [form, setForm] = useState({
+    email: "",
+    fullName: "",
+    phone: "",
+    password: "",
+    image: "noname.png",
+  });
 
-  //   // ketika di input
-  //   const handleOnChange = (e) => {
-  //     setForm({
-  //       ...form,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  // ketika di input
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  //   // ketika tombol submit di tekan
-  //   const handleOnSubmit = async (e) => {
-  //     try {
-  //       e.preventDefault();
+  // ketika tombol submit di tekan
+  const handleOnSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-  //       // Config
-  //       const config = {
-  //         headers: {
-  //           "Content-type": "application/json",
-  //         },
-  //       };
+      // Config
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-  //       // Stringify
-  //       const body = JSON.stringify(form);
+      // Stringify
+      const body = JSON.stringify(form);
 
-  //       // link config
-  //       const response = await API.post("/register", body, config);
+      // link config
+      const response = await API.post("/register", body, config);
 
-  //       // jika success
-  //       if (response.data.status == "success") {
-  //         // ketika success
-  //         const alert = (
-  //           <Alert variant="success" className="py-2">
-  //             Success
-  //           </Alert>
-  //         );
-  //         setMessage(alert);
+      // jika success
+      if (response.data.status == "success") {
+        // ketika success
+        const alert = (
+          <Alert variant="success" className="py-2">
+            Success
+          </Alert>
+        );
+        setMessage(alert);
 
-  //         // kosongkan data
-  //         setForm({
-  //           fullName: "",
-  //           email: "",
-  //           username: "",
-  //           password: "",
-  //         });
+        // kosongkan data
+        setForm({
+          fullName: "",
+          email: "",
+          phone: "",
+          password: "",
+        });
 
-  //         handleRegisterClose();
+        handleRegisterClose();
 
-  //         Swal.fire("Good job!", "Registration Success", "success");
+        Swal.fire("Good job!", "Registration Success", "success");
 
-  //         // jika kesalahan inputan
-  //       } else {
-  //         const alert = (
-  //           <Alert variant="danger" className="py-2">
-  //             Failed
-  //           </Alert>
-  //         );
-  //         setMessage(alert);
-  //       }
+        // jika kesalahan inputan
+      } else {
+        const alert = (
+          <Alert variant="danger" className="py-2">
+            Failed
+          </Alert>
+        );
+        setMessage(alert);
+      }
 
-  //       // server error
-  //     } catch (error) {
-  //       const alert = (
-  //         <Alert variant="danger" className="py-2">
-  //           Failed
-  //         </Alert>
-  //       );
-  //       setMessage(alert);
-  //       console.log(error);
-  //     }
-  //   };
+      // server error
+    } catch (error) {
+      const alert = (
+        <Alert variant="danger" className="py-2">
+          Failed
+        </Alert>
+      );
+      setMessage(alert);
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -117,14 +117,13 @@ export default (props) => {
         <Modal.Body>
           <Modal.Title className="form-auth-h">Register</Modal.Title>
           {/* alert */}
-          {/* {message && message}
-          <Form onSubmit={handleOnSubmit}> */}
-          <Form>
+          {message && message}
+          <Form onSubmit={handleOnSubmit}>
             <Form.Group>
               <Form.Control
                 className="form-auth-input"
-                // onChange={handleOnChange}
-                // value={form.email}
+                onChange={handleOnChange}
+                value={form.email}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -135,8 +134,8 @@ export default (props) => {
             <Form.Group>
               <Form.Control
                 className="form-auth-input"
-                // onChange={handleOnChange}
-                // value={form.fullName}
+                onChange={handleOnChange}
+                value={form.fullName}
                 type="text"
                 name="fullName"
                 placeholder="Name"
@@ -147,11 +146,11 @@ export default (props) => {
             <Form.Group>
               <Form.Control
                 className="form-auth-input"
-                // onChange={handleOnChange}
-                // value={form.username}
-                type="text"
-                name="username"
-                placeholder="Username"
+                onChange={handleOnChange}
+                value={form.phone}
+                type="number"
+                name="phone"
+                placeholder="Phone Number"
                 autoComplete="false"
                 required
               />
@@ -159,8 +158,8 @@ export default (props) => {
             <Form.Group>
               <Form.Control
                 className="form-auth-input"
-                // onChange={handleOnChange}
-                // value={form.password}
+                onChange={handleOnChange}
+                value={form.password}
                 type="password"
                 name="password"
                 placeholder="Password"

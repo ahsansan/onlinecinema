@@ -45,6 +45,7 @@ router.get("/check-auth", auth, authUser);
 router.get("/user/:id", auth, getUser);
 router.patch("/user/:id", auth, uploadFile("image"), updateUser);
 // Film
+router.get("/films", getFilms);
 router.get("/film/:id", getFilm);
 // Transaction
 router.post("/transaction", auth, uploadFile("transferProof"), addTransaction);
@@ -53,7 +54,6 @@ router.get("/my-list", auth, myList);
 
 // Route Admin
 // Film
-router.get("/films", admin, getFilms);
 router.post("/film", admin, uploadFile("tumbnail"), addFilm);
 router.patch("/film/:id", admin, uploadFile("tumbnail"), updateFilm);
 router.delete("/film/:id", admin, deleteFilm);

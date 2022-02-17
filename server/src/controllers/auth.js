@@ -1,5 +1,5 @@
 const { tbUser, tbTransaction } = require("../../models");
-const Joi = require("joi");
+const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -7,11 +7,12 @@ exports.register = async (req, res) => {
   try {
     const data = req.body;
 
-    const schema = Joi.object({
-      fullName: Joi.string().min(3).required(),
-      email: Joi.string().email().min(6).required(),
-      phone: Joi.string().min(6).required(),
-      password: Joi.string().min(6).required(),
+    const schema = joi.object({
+      fullName: joi.string().min(4).required(),
+      email: joi.string().email().required(),
+      phone: joi.string().min(4).required(),
+      password: joi.string().min(6).required(),
+      image: joi.string().min(3).required(),
     });
 
     const { error } = schema.validate(data);
@@ -48,7 +49,7 @@ exports.register = async (req, res) => {
       id: dataUser.id,
       fullName: dataUser.fullName,
       email: dataUser.email,
-      role: dataOnTable.role,
+      role: dataUser.role,
       password: dataUser.password,
     };
     const secretKey = process.env.SECRET_KEY;
@@ -82,9 +83,9 @@ exports.login = async (req, res) => {
     const path = process.env.UPLOAD_PATH;
 
     // Validasi input
-    const schema = Joi.object({
-      email: Joi.string().email().required(),
-      password: Joi.string().min(6).required(),
+    const schema = joi.object({
+      email: joi.string().email().required(),
+      password: joi.string().min(6).required(),
     });
 
     // Deklarasi validasi
