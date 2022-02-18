@@ -34,7 +34,7 @@ exports.getUser = async (req, res) => {
           model: tbTransaction,
           as: "transaction",
           attributes: {
-            exclude: ["updatedAt", "personId"],
+            exclude: ["updatedAt", "idUser"],
           },
           include: [
             {

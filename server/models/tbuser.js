@@ -15,6 +15,15 @@ module.exports = (sequelize, DataTypes) => {
           name: "idUser",
         },
       });
+      tbUser.belongsToMany(models.tbFilm, {
+        as: "filmUser",
+        // through is required in this association
+        through: {
+          model: "tbTransaction", // this is "bridge" table
+          as: "bridge",
+        },
+        foreignKey: "idUser",
+      });
     }
   }
   tbUser.init(

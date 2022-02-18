@@ -1,4 +1,4 @@
-const { tbFilm, tbCategory } = require("../../models");
+const { tbFilm, tbCategory, tbUser, tbTransaction } = require("../../models");
 const fs = require("fs");
 
 exports.getFilms = async (req, res) => {
@@ -59,7 +59,7 @@ exports.getFilm = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "categoryId"],
+        exclude: ["createdAt", "updatedAt", "idCategory"],
       },
     });
 

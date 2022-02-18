@@ -104,12 +104,6 @@ exports.login = async (req, res) => {
       where: {
         email: data.email,
       },
-      include: [
-        {
-          model: tbTransaction,
-          as: "transaction",
-        },
-      ],
     });
 
     // Jika belum didaftarkan
@@ -159,7 +153,6 @@ exports.login = async (req, res) => {
           image: path + dataOnTable.image,
           role: dataOnTable.role,
           token,
-          transaction: dataOnTable.transaction,
         },
       },
     });
@@ -181,12 +174,6 @@ exports.authUser = async (req, res) => {
       where: {
         id,
       },
-      include: [
-        {
-          model: tbTransaction,
-          as: "transaction",
-        },
-      ],
       attributes: {
         exclude: ["createdAt", "updateAt", "password"],
       },
@@ -209,7 +196,6 @@ exports.authUser = async (req, res) => {
           image: path + dataUser.image,
           phone: dataUser.phone,
           role: dataUser.role,
-          transaction: dataUser.transaction,
         },
       },
     });

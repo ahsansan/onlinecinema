@@ -2,11 +2,18 @@
 import "../../styles/header.css";
 import { useContext } from "react";
 import { NavDropdown } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 import { UserContext } from "../../context/userContext";
 
 export default () => {
   const [state, dispatch] = useContext(UserContext);
+
+  const router = useHistory();
+
+  const goTo = (path) => {
+    router.push(path);
+  };
 
   const role = state.user.role;
 
@@ -34,7 +41,7 @@ export default () => {
             <NavDropdown.Item className="menu-menu-container">
               <div className="d-flex flex-row menu-container">
                 <img
-                  src={process.env.PUBLIC_URL + "images/addfilm.png"}
+                  src={"http://localhost:5000/uploads/addfilm.png"}
                   className="icon-plus"
                 />
                 <strong style={{ color: "white" }}>Add Film</strong>
@@ -43,19 +50,25 @@ export default () => {
           </div>
         ) : (
           <div>
-            <NavDropdown.Item className="menu-menu-container">
+            <NavDropdown.Item
+              className="menu-menu-container"
+              onClick={() => goTo("/profile")}
+            >
               <div className="d-flex flex-row menu-container">
                 <img
-                  src={process.env.PUBLIC_URL + "images/user.png"}
+                  src={"http://localhost:5000/uploads/user.png"}
                   className="icon-plus"
                 />
                 <strong style={{ color: "white" }}>Profile</strong>
               </div>
             </NavDropdown.Item>
-            <NavDropdown.Item className="menu-menu-container">
+            <NavDropdown.Item
+              className="menu-menu-container"
+              onClick={() => goTo("/myfilm")}
+            >
               <div className="d-flex flex-row menu-container">
                 <img
-                  src={process.env.PUBLIC_URL + "images/clapperboard.png"}
+                  src={"http://localhost:5000/uploads/clapperboard.png"}
                   className="icon-plus"
                 />
                 <strong style={{ color: "white" }}>My List Film</strong>
@@ -67,7 +80,7 @@ export default () => {
         <NavDropdown.Item className="menu-logout" onClick={handleLogout}>
           <div className="d-flex flex-row menu-container">
             <img
-              src={process.env.PUBLIC_URL + "images/logout.png"}
+              src={"http://localhost:5000/uploads/logout.png"}
               className="icon-plus"
             />
             <strong style={{ color: "white" }}>Logout</strong>

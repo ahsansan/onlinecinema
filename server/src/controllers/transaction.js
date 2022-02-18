@@ -5,25 +5,17 @@ const fs = require("fs");
 exports.addTransaction = async (req, res) => {
   try {
     const idUser = req.user.id;
+    const idFilm = req.params.id;
     const data = req.body;
-    const transactions = await tbTransaction.create({
+    await tbTransaction.create({
       ...data,
       idUser: idUser,
+      idFilm: idFilm,
       transferProof: req.file.filename,
-    });
-    const { id } = transactions;
-    const findTransaction = await tbTransaction.findOne({
-      where: {
-        id,
-      },
-      attributes: {
-        exclude: ["createdAt", "updatedAt", "idUser", "idFilm"],
-      },
     });
 
     res.status(200).send({
       status: "success",
-      data: findTransaction,
     });
   } catch (error) {
     console.log(error);
@@ -87,6 +79,29 @@ exports.getTransactions = async (req, res) => {
   }
 };
 
+exports.getTransactionById = async (req, res) => {
+  try {
+    const idUser = req.user.id;
+    const id = req.params.id;
+    const dataTransactions = await tbTransaction.findOne({
+      where: {
+        [Op.and]: [{ idUser: idUser }, { idFilm: id }],
+      },
+    });
+
+    res.status(200).send({
+      status: "success",
+      data: dataTransactions,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "server error",
+    });
+  }
+};
+
 exports.myList = async (req, res) => {
   try {
     const idUser = req.user.id;
@@ -99,7 +114,7 @@ exports.myList = async (req, res) => {
           model: tbFilm,
           as: "film",
           attributes: {
-            exclude: ["createdAt", "updatedAt", "idCategory", "filmUrl"],
+            exclude: ["createdAt", "updatedAt", "idCategory", "filmUrl", "id"],
           },
           include: [
             {

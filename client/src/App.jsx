@@ -11,7 +11,9 @@ import PrivateRoute from "./components/route/PrivateRoute";
 import AdminRoute from "./components/route/AdminRoute";
 import Header from "./components/header/Header";
 import Home from "./pages/Home";
-import ListFilm from "./pages/ListFilm";
+import DetailFilm from "./pages/DetailFilm";
+import Profile from "./pages/Profile";
+import MyFilms from "./pages/MyFilms";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -50,10 +52,10 @@ export default () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute exact path="/list" component={ListFilm} />
-        {/* <PrivateRoute exact path="/film/:id" component={DetailFilm} />
+        <PrivateRoute exact path="/film/:id" component={DetailFilm} />
         <PrivateRoute exact path="/profile" component={Profile} />
-        <PrivateRoute exact path="/my-film" component={MyFilm} />
+        <PrivateRoute exact path="/myfilm" component={MyFilms} />
+        {/* <PrivateRoute exact path="/my-film" component={MyFilm} />
         <AdminRoute exact path="/add-film" component={AddFilm} />
         <AdminRoute exact path="/transactions" component={Transactions} />
         <AdminRoute exact path="/edit-film/:id" component={EditFilm} /> */}

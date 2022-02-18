@@ -26,6 +26,7 @@ const {
 const {
   addTransaction,
   getTransactions,
+  getTransactionById,
   myList,
   updateTransaction,
   deleteTransaction,
@@ -48,8 +49,14 @@ router.patch("/user/:id", auth, uploadFile("image"), updateUser);
 router.get("/films", getFilms);
 router.get("/film/:id", getFilm);
 // Transaction
-router.post("/transaction", auth, uploadFile("transferProof"), addTransaction);
-router.patch("/transaction/:id", admin, updateTransaction);
+router.post(
+  "/transaction/:id",
+  auth,
+  uploadFile("transferProof"),
+  addTransaction
+);
+router.get("/transaction/:id", auth, getTransactionById);
+router.patch("/transaction/:id", auth, updateTransaction);
 router.get("/my-list", auth, myList);
 
 // Route Admin

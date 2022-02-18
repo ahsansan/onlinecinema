@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { API } from "../config/api";
 import { UserContext } from "../context/userContext";
 import { convertToRupiah } from "../components/utils/rupiah";
@@ -100,7 +100,6 @@ export default () => {
               />
             </Col>
           ))}
-          <Link to="/list">Klik</Link>
         </Row>
         {isOpenLogin && (
           <Login
