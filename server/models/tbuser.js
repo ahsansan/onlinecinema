@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       tbUser.hasMany(models.tbTransaction, {
         as: "transaction",
         foreignKey: {
-          name: "idUser",
+          name: "id",
         },
       });
       tbUser.belongsToMany(models.tbFilm, {

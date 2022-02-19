@@ -7,8 +7,14 @@ import { UserContext } from "../context/userContext";
 import { convertToRupiah } from "../components/utils/rupiah";
 import NotFound from "../components/NotFound";
 import "../styles/home.css";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export default () => {
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
+
   const [film, setFilm] = useState({});
   const [trans, setTrans] = useState({});
   const [isError, setIsError] = useState(false);
@@ -77,35 +83,40 @@ export default () => {
           </Toast.Body>
         </Toast>
         <div className="d-flex justify-content-between">
-          <img
-            src={`http://localhost:5000/uploads/${film.tumbnail}`}
-            alt="thumbnail"
-            className="tumbnail-film-detail"
-          />
-          <div>
+          <div data-aos="fade-right">
+            <img
+              src={`http://localhost:5000/uploads/${film.tumbnail}`}
+              alt="thumbnail"
+              className="tumbnail-film-detail"
+            />
+          </div>
+          <div data-aos="fade-left">
             <div className="d-flex align-items-center justify-content-between">
               <h1 className="mb-4 judul-film-detail">{film.title}</h1>
-              {(trans == "undefined" ||
-                trans == "" ||
-                trans == null ||
-                trans.status == "Pending") && (
+              {(trans === "undefined" ||
+                trans === "" ||
+                trans === null ||
+                trans.status === "Pending" ||
+                trans.status === "Canceled") && (
                 <button className="button-buy-film" onClick={onClickBuy}>
                   {user.role === "admin" ? "Edit Film" : "Buy Now"}
                 </button>
               )}
             </div>
-            {(trans == "undefined" ||
-              trans == "" ||
-              trans == null ||
-              trans.status == "Pending") && (
+            {(trans === "undefined" ||
+              trans === "" ||
+              trans === null ||
+              trans.status === "Pending" ||
+              trans.status === "Canceled") && (
               <div onClick={() => setShow(true)} className="overlay" />
             )}
             <iframe
               id={
-                trans == "undefined" ||
-                trans == "" ||
-                trans == null ||
-                trans.status == "Pending"
+                trans === "undefined" ||
+                trans === "" ||
+                trans === null ||
+                trans.status === "Pending" ||
+                trans.status === "Canceled"
                   ? "overlay"
                   : ""
               }
@@ -119,10 +130,11 @@ export default () => {
             ></iframe>
             <div style={{ width: 640, marginTop: "2rem" }}>
               <h4 className="detail-genre">{film.category.name}</h4>
-              {(trans == "undefined" ||
-                trans == "" ||
-                trans == null ||
-                trans.status == "Pending") && (
+              {(trans === "undefined" ||
+                trans === "" ||
+                trans === null ||
+                trans.status === "Pending" ||
+                trans.status === "Canceled") && (
                 <p className="detail-harga">{convertToRupiah(film.price)}</p>
               )}
               <p className="detail-desk">{film.description}</p>

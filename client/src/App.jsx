@@ -13,7 +13,11 @@ import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import DetailFilm from "./pages/DetailFilm";
 import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 import MyFilms from "./pages/MyFilms";
+import AddFilm from "./pages/AddFilm";
+import EditFilm from "./pages/EditFilm";
+import Transactions from "./pages/Transactions";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -54,11 +58,11 @@ export default () => {
         <Route exact path="/" component={Home} />
         <PrivateRoute exact path="/film/:id" component={DetailFilm} />
         <PrivateRoute exact path="/profile" component={Profile} />
-        <PrivateRoute exact path="/myfilm" component={MyFilms} />
-        {/* <PrivateRoute exact path="/my-film" component={MyFilm} />
+        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+        <PrivateRoute exact path="/my-film" component={MyFilms} />
         <AdminRoute exact path="/add-film" component={AddFilm} />
         <AdminRoute exact path="/transactions" component={Transactions} />
-        <AdminRoute exact path="/edit-film/:id" component={EditFilm} /> */}
+        <AdminRoute exact path="/edit-film/:id" component={EditFilm} />
       </Switch>
     </>
   );

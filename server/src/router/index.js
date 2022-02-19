@@ -26,6 +26,7 @@ const {
 const {
   addTransaction,
   getTransactions,
+  getTransactionList,
   getTransactionById,
   myList,
   updateTransaction,
@@ -55,8 +56,8 @@ router.post(
   uploadFile("transferProof"),
   addTransaction
 );
+router.get("/transaction-list", auth, getTransactionList);
 router.get("/transaction/:id", auth, getTransactionById);
-router.patch("/transaction/:id", auth, updateTransaction);
 router.get("/my-list", auth, myList);
 
 // Route Admin
@@ -69,6 +70,7 @@ router.get("/users", admin, getUsers);
 router.delete("/user/:id", admin, deleteUser);
 // Transaction
 router.get("/transactions", admin, getTransactions);
+router.patch("/transaction/:id", admin, updateTransaction);
 router.delete("/transaction/:id", admin, deleteTransaction);
 // Category
 router.get("/categories", admin, getCategories);

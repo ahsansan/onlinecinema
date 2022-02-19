@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       accountNumber: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       transferProof: {
         type: Sequelize.STRING,

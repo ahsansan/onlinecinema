@@ -38,13 +38,22 @@ export default () => {
       >
         {role == "admin" ? (
           <div>
-            <NavDropdown.Item className="menu-menu-container">
+            <NavDropdown.Item
+              className="menu-menu-container"
+              onClick={() => goTo("/add-film")}
+            >
               <div className="d-flex flex-row menu-container">
-                <img
-                  src={"http://localhost:5000/uploads/addfilm.png"}
-                  className="icon-plus"
-                />
+                <img src="/clapperboard.svg" className="icon-plus" />
                 <strong style={{ color: "white" }}>Add Film</strong>
+              </div>
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              className="menu-menu-container"
+              onClick={() => goTo("/transactions")}
+            >
+              <div className="d-flex flex-row menu-container">
+                <img src="/transaction.svg" className="icon-plus" />
+                <strong style={{ color: "white" }}>Transactions</strong>
               </div>
             </NavDropdown.Item>
           </div>
@@ -55,22 +64,16 @@ export default () => {
               onClick={() => goTo("/profile")}
             >
               <div className="d-flex flex-row menu-container">
-                <img
-                  src={"http://localhost:5000/uploads/user.png"}
-                  className="icon-plus"
-                />
+                <img src="/user.svg" className="icon-plus" />
                 <strong style={{ color: "white" }}>Profile</strong>
               </div>
             </NavDropdown.Item>
             <NavDropdown.Item
               className="menu-menu-container"
-              onClick={() => goTo("/myfilm")}
+              onClick={() => goTo("/my-film")}
             >
               <div className="d-flex flex-row menu-container">
-                <img
-                  src={"http://localhost:5000/uploads/clapperboard.png"}
-                  className="icon-plus"
-                />
+                <img src="/clapperboard.svg" className="icon-plus" />
                 <strong style={{ color: "white" }}>My List Film</strong>
               </div>
             </NavDropdown.Item>
@@ -79,10 +82,7 @@ export default () => {
 
         <NavDropdown.Item className="menu-logout" onClick={handleLogout}>
           <div className="d-flex flex-row menu-container">
-            <img
-              src={"http://localhost:5000/uploads/logout.png"}
-              className="icon-plus"
-            />
+            <img src="/logout.svg" className="icon-plus" />
             <strong style={{ color: "white" }}>Logout</strong>
           </div>
         </NavDropdown.Item>

@@ -1,18 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { API } from "../config/api";
+import { useHistory } from "react-router-dom";
 import { convertToRupiah } from "../components/utils/rupiah";
+import { getFullTime } from "../components/utils/date";
 import NotFound from "../components/NotFound";
 import { UserContext } from "../context/userContext";
 import "../styles/profile.css";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export default () => {
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
+
   const path = "http://localhost:5000/uploads/";
   const [profile, setProfile] = useState({});
   const [isError, setIsError] = useState(false);
   const [trans, setTrans] = useState([]);
 
   const [{ user }] = useContext(UserContext);
+
+  const router = useHistory();
 
   const idUser = user.id;
 
@@ -27,8 +37,8 @@ export default () => {
 
   const getTrans = async () => {
     try {
-      const resp = await API.get(`/user/${idUser}`);
-      setTrans(resp.data.data.user.transaction);
+      const resp = await API.get(`/transaction-list`);
+      setTrans(resp.data.data);
     } catch (err) {
       setIsError(true);
     }
@@ -49,16 +59,24 @@ export default () => {
   return (
     <Container className="mt-5">
       <div className="d-flex justify-content-between align-item-center">
-        <div>
+        <div data-aos="fade-right">
           <h1 className="mb-4 my-profile">My Profile</h1>
           <div className="d-flex justify-content-between align-item-center">
-            <img
-              src={path + `${profile.image}`}
-              alt="profile-pic"
-              className="image-profile"
-              width="180px"
-              height="221.79px"
-            />
+            <div className="d-flex flex-column justify-content-between">
+              <img
+                src={path + `${profile.image}`}
+                alt="profile-pic"
+                className="image-profile"
+                width="180px"
+                height="221.79px"
+              />
+              <button
+                className="tombol-edit-profile"
+                onClick={() => router.push("/edit-profile")}
+              >
+                Edit Profile
+              </button>
+            </div>
             <div className="d-flex flex-column ml-4 justify-content-between">
               <div>
                 <h5 className="judul-title">Full Name</h5>
@@ -75,43 +93,58 @@ export default () => {
             </div>
           </div>
         </div>
-        <div>
-          <h1 className="mb-4 my-profile">History Transaction</h1>
-          {trans.map((film) => (
-            <Card
-              key={film.idFilm}
-              style={{
-                width: "419px",
-                height: "auto",
-                marginBottom: "1rem",
-                backgroundColor: "#CD2E7170",
-              }}
-            >
-              <Card.Body className="card-profile">
-                <div className="d-flex flex-column justify-content-between">
-                  <b className="judul-film-order">{film.film.title}</b>
-                  <i className="tanggal-order-film">{film.createdAt}</i>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="profile-harga-film">
-                      Total: {convertToRupiah(film.film.price)}
-                    </div>
-                    <div className="alert-container">
-                      <div
-                        className={
-                          film.status === "Approve"
-                            ? "profile-status-film"
-                            : "profile-status-pending"
-                        }
-                      >
-                        {film.status === "Approve" ? "Finished" : "Pending"}
+        {trans.length > 0 ? (
+          <div data-aos="fade-left">
+            <h1 className="mb-4 my-profile">History Transaction</h1>
+            {trans.map((film) => (
+              <Card
+                key={film.idFilm}
+                style={{
+                  width: "419px",
+                  height: "auto",
+                  marginBottom: "1rem",
+                  backgroundColor: "#CD2E7170",
+                }}
+              >
+                <Card.Body className="card-profile">
+                  <div className="d-flex flex-column justify-content-between">
+                    <b className="judul-film-order">{film.film.title}</b>
+                    <i className="tanggal-order-film">
+                      {getFullTime(film.createdAt)}
+                    </i>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="profile-harga-film">
+                        Total: {convertToRupiah(film.film.price)}
+                      </div>
+                      <div className="alert-container">
+                        <div
+                          className={
+                            film.status === "Approve"
+                              ? "profile-status-film"
+                              : film.status === "Pending"
+                              ? "profile-status-pending"
+                              : "profile-status-reject"
+                          }
+                        >
+                          {film.status === "Approve"
+                            ? "Finished"
+                            : film.status === "Pending"
+                            ? "Pending"
+                            : "Rejected"}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div data-aos="fade-left">
+            <h1 className="mb-4 my-profile">History Transaction</h1>
+            <p>you don't have a transaction</p>
+          </div>
+        )}
       </div>
     </Container>
   );

@@ -7,8 +7,14 @@ import { convertToRupiah } from "../components/utils/rupiah";
 import Register from "../components/header/Register";
 import Login from "../components/header/Login";
 import "../styles/home.css";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export default () => {
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
+
   const [isOpenLogin, setOpenLogin] = useState(false);
   const handleLogin = (datanya) => setOpenLogin(datanya);
 
@@ -47,7 +53,7 @@ export default () => {
 
   return (
     <>
-      <div className="container-utama">
+      <div className="container-utama" data-aos="fade-right">
         {films.length && (
           <Container>
             <div
@@ -83,7 +89,7 @@ export default () => {
           </Container>
         )}
       </div>
-      <div className="mt-5 container-list-film">
+      <div className="mt-5 container-list-film" data-aos="fade-left">
         <h2 className="mb-4" style={{ color: "white" }}>
           List Film
         </h2>

@@ -1,4 +1,4 @@
-const { tbUser, tbTransaction, tbFilm, tbCategory } = require("../../models");
+const { tbUser } = require("../../models");
 const fs = require("fs");
 
 exports.getUsers = async (req, res) => {
@@ -29,35 +29,8 @@ exports.getUser = async (req, res) => {
       where: {
         id,
       },
-      include: [
-        {
-          model: tbTransaction,
-          as: "transaction",
-          attributes: {
-            exclude: ["updatedAt", "idUser"],
-          },
-          include: [
-            {
-              model: tbFilm,
-              as: "film",
-              attributes: {
-                exclude: ["createdAt", "updatedAt", "categoryId", "filmUrl"],
-              },
-              include: [
-                {
-                  model: tbCategory,
-                  as: "category",
-                  attributes: {
-                    exclude: ["createdAt", "updatedAt"],
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "password", "is_admin"],
+        exclude: ["createdAt", "updatedAt", "password", "role"],
       },
     });
 

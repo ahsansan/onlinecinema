@@ -109,7 +109,7 @@ export default ({ isVisible, onHide, filmId, title }) => {
             >
               <p>Attach Payment</p>
               <img
-                src="http://localhost:5000/uploads/payment.png"
+                src="/attachment.svg"
                 width={25}
                 height={25}
                 style={{ marginLeft: "10px" }}

@@ -102,6 +102,49 @@ exports.getTransactionById = async (req, res) => {
   }
 };
 
+exports.getTransactionList = async (req, res) => {
+  try {
+    const idUser = req.user.id;
+    const dataTransactions = await tbTransaction.findAll({
+      where: {
+        idUser: idUser,
+      },
+      include: [
+        {
+          model: tbFilm,
+          as: "film",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "idCategory", "filmUrl", "id"],
+          },
+          include: [
+            {
+              model: tbCategory,
+              as: "category",
+              attributes: {
+                exclude: ["createdAt", "updatedAt"],
+              },
+            },
+          ],
+        },
+      ],
+      attributes: {
+        exclude: ["updatedAt"],
+      },
+    });
+
+    res.status(200).send({
+      status: "success",
+      data: dataTransactions,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "server error",
+    });
+  }
+};
+
 exports.myList = async (req, res) => {
   try {
     const idUser = req.user.id;

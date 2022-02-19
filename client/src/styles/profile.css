@@ -24,6 +24,22 @@
   margin-bottom: 20px;
 }
 
+.tombol-edit-profile {
+  border-radius: 5px;
+  border: none;
+  background-color: #cd2e71;
+  margin-top: 10px;
+  width: 180px;
+  padding: 10px 5px;
+  color: white;
+  font-family: Avenir;
+  font-weight: 600;
+}
+
+.tombol-edit-profile:hover {
+  background-color: #96013f;
+}
+
 .judul-film-order {
   font-family: Avenir;
   font-weight: 900;
@@ -61,4 +77,13 @@
   padding: 3px 20px;
   border-radius: 5px;
   color: rgb(109, 109, 0);
+}
+
+.profile-status-reject {
+  font-size: 10px;
+  font-weight: 500;
+  background-color: rgb(255, 202, 202);
+  padding: 3px 20px;
+  border-radius: 5px;
+  color: rgb(133, 0, 0);
 }

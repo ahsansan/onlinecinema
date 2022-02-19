@@ -27,11 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       idUser: DataTypes.INTEGER,
       idFilm: DataTypes.INTEGER,
-      status: {
-        type: DataTypes.STRING,
-        defaultValue: "Pending",
-      },
-      accountNumber: DataTypes.INTEGER,
+      status: DataTypes.STRING,
+      accountNumber: DataTypes.STRING,
       transferProof: DataTypes.STRING,
     },
     {

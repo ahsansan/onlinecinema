@@ -1,0 +1,20 @@
+.btn-action-menu {
+  border: none;
+  background-color: transparent;
+  color: #61c6e7;
+  font-size: 25px;
+  margin-top: -50px;
+}
+
+.judul-transaksi {
+  font-family: Avenir;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.action-container {
+  background-color: #1f1f1f;
+}
+.action-container:hover {
+  background-color: #1f1f1f;
+}
