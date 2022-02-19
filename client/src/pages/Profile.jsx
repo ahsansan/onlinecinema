@@ -57,7 +57,7 @@ export default () => {
   }
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5" style={{ minHeight: "71vh" }}>
       <div className="d-flex justify-content-between align-item-center">
         <div data-aos="fade-right">
           <h1 className="mb-4 my-profile">My Profile</h1>
@@ -119,14 +119,14 @@ export default () => {
                       <div className="alert-container">
                         <div
                           className={
-                            film.status === "Approve"
+                            film.status === "Approved"
                               ? "profile-status-film"
                               : film.status === "Pending"
                               ? "profile-status-pending"
                               : "profile-status-reject"
                           }
                         >
-                          {film.status === "Approve"
+                          {film.status === "Approved"
                             ? "Finished"
                             : film.status === "Pending"
                             ? "Pending"

@@ -150,7 +150,7 @@ exports.myList = async (req, res) => {
     const idUser = req.user.id;
     const dataTransactions = await tbTransaction.findAll({
       where: {
-        [Op.and]: [{ idUser: idUser }, { status: "Approve" }],
+        [Op.and]: [{ idUser: idUser }, { status: "Approved" }],
       },
       include: [
         {

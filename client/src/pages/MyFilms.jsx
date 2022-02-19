@@ -35,7 +35,11 @@ export default () => {
   }
 
   return (
-    <Container className="mt-5" data-aos="fade-up">
+    <Container
+      className="mt-5"
+      data-aos="fade-up"
+      style={{ minHeight: "71vh" }}
+    >
       <h1 className="mb-4 ms-4 judul-my-film">My List Film</h1>
       {myFilm.length > 0 ? (
         <Row>

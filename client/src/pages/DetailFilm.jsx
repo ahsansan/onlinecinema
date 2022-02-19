@@ -7,14 +7,8 @@ import { UserContext } from "../context/userContext";
 import { convertToRupiah } from "../components/utils/rupiah";
 import NotFound from "../components/NotFound";
 import "../styles/home.css";
-import Aos from "aos";
-import "aos/dist/aos.css";
 
 export default () => {
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
-
   const [film, setFilm] = useState({});
   const [trans, setTrans] = useState({});
   const [isError, setIsError] = useState(false);
@@ -83,14 +77,14 @@ export default () => {
           </Toast.Body>
         </Toast>
         <div className="d-flex justify-content-between">
-          <div data-aos="fade-right">
+          <div>
             <img
               src={`http://localhost:5000/uploads/${film.tumbnail}`}
               alt="thumbnail"
               className="tumbnail-film-detail"
             />
           </div>
-          <div data-aos="fade-left">
+          <div>
             <div className="d-flex align-items-center justify-content-between">
               <h1 className="mb-4 judul-film-detail">{film.title}</h1>
               {(trans === "undefined" ||

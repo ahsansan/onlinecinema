@@ -10,6 +10,7 @@ import { UserContext } from "./context/userContext";
 import PrivateRoute from "./components/route/PrivateRoute";
 import AdminRoute from "./components/route/AdminRoute";
 import Header from "./components/header/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import DetailFilm from "./pages/DetailFilm";
 import Profile from "./pages/Profile";
@@ -64,6 +65,7 @@ export default () => {
         <AdminRoute exact path="/transactions" component={Transactions} />
         <AdminRoute exact path="/edit-film/:id" component={EditFilm} />
       </Switch>
+      <Footer />
     </>
   );
 };

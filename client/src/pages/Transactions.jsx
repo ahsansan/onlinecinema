@@ -57,7 +57,11 @@ export default () => {
   };
 
   return (
-    <Container className="mt-5" data-aos="fade-up">
+    <Container
+      className="mt-5"
+      data-aos="fade-up"
+      style={{ minHeight: "71vh" }}
+    >
       <h1 className="mb-4 judul-transaksi">Incoming Transaction</h1>
       {msg.text && (
         <Alert variant={msg.error ? "danger" : "success"}>{msg.text}</Alert>
@@ -94,42 +98,55 @@ export default () => {
               <td
                 style={{
                   color:
-                    trans.status === "Approve"
+                    trans.status === "Approved"
                       ? "green"
                       : trans.status === "Pending"
                       ? "orange"
                       : "red",
                 }}
               >
-                {trans.status}
+                <strong>{trans.status}</strong>
               </td>
               <td>
                 <DropdownButton
-                  id="nav-dropdown"
+                  id="dropdown-button"
                   bsPrefix="btn-action-menu"
                   title=""
                 >
-                  <Dropdown.Item
-                    className="action-container"
-                    style={{ color: "green" }}
-                    onClick={() => updateStatus(trans.id, "Approve")}
-                  >
-                    Approve
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className="action-container"
-                    style={{ color: "orange" }}
-                    onClick={() => updateStatus(trans.id, "Pending")}
-                  >
-                    Pending
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className="action-container"
-                    style={{ color: "red" }}
-                    onClick={() => updateStatus(trans.id, "Canceled")}
-                  >
-                    Cancel
-                  </Dropdown.Item>
+                  {trans.status === "Approved" ? (
+                    <Dropdown.Item
+                      className="action-container"
+                      style={{ color: "red" }}
+                      onClick={() => updateStatus(trans.id, "Canceled")}
+                    >
+                      Cancel
+                    </Dropdown.Item>
+                  ) : trans.status === "Pending" ? (
+                    <div>
+                      <Dropdown.Item
+                        className="action-container"
+                        style={{ color: "green" }}
+                        onClick={() => updateStatus(trans.id, "Approved")}
+                      >
+                        Approve
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        className="action-container"
+                        style={{ color: "red" }}
+                        onClick={() => updateStatus(trans.id, "Canceled")}
+                      >
+                        Cancel
+                      </Dropdown.Item>
+                    </div>
+                  ) : (
+                    <Dropdown.Item
+                      className="action-container"
+                      style={{ color: "green" }}
+                      onClick={() => updateStatus(trans.id, "Approved")}
+                    >
+                      Approve
+                    </Dropdown.Item>
+                  )}
                 </DropdownButton>
               </td>
             </tr>
